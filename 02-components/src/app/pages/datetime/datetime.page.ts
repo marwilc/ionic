@@ -7,6 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DatetimePage implements OnInit {
     date = new Date();
+    customPickerOptions = {
+        buttons: [
+            {
+                text: 'Save',
+                handler: () => console.log('Clicked Save!'),
+            },
+            {
+                text: 'Log',
+                handler: () => {
+                    console.log('Clicked Log. Do not Dismiss.');
+                    return false;
+                },
+            },
+        ],
+    };
     constructor() {}
 
     ngOnInit() {}

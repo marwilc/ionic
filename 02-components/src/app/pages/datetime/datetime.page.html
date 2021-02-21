@@ -13,6 +13,11 @@
             <ion-datetime [value]="date.toISOString()"></ion-datetime>
         </ion-item>
 
+        <ion-item>
+            <ion-label>Custom options</ion-label>
+            <ion-datetime [pickerOptions]="customPickerOptions"></ion-datetime>
+        </ion-item>
+
     </ion-list>
 
 </ion-content>
