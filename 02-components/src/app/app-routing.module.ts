@@ -7,13 +7,17 @@ import {
 
 const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'init',
+        pathMatch: 'full',
+    },
+    {
         path: 'init',
         loadChildren: () =>
             import('./pages/init/init.module').then(
                 (m) => m.InitPageModule
             ),
     },
-
     {
         path: 'alert',
         loadChildren: () =>
@@ -21,15 +25,37 @@ const routes: Routes = [
                 (m) => m.AlertPageModule
             ),
     },
-
     {
-        path: '',
-        redirectTo: 'init',
-        pathMatch: 'full',
+        path: 'action-sheet',
+        loadChildren: () =>
+            import('./pages/action-sheet/action-sheet.module').then(
+                (m) => m.ActionSheetPageModule
+            ),
+    },
+    {
+        path: 'avatar',
+        loadChildren: () =>
+            import('./pages/avatar/avatar.module').then(
+                (m) => m.AvatarPageModule
+            ),
+    },
+    {
+        path: 'button',
+        loadChildren: () =>
+            import('./pages/button/button.module').then(
+                (m) => m.ButtonPageModule
+            ),
+    },
+    {
+        path: 'card',
+        loadChildren: () =>
+            import('./pages/card/card.module').then(
+                (m) => m.CardPageModule
+            ),
     },
   {
-    path: 'action-sheet',
-    loadChildren: () => import('./pages/action-sheet/action-sheet.module').then( m => m.ActionSheetPageModule)
+    path: 'check',
+    loadChildren: () => import('./pages/check/check.module').then( m => m.CheckPageModule)
   },
 ];
 
