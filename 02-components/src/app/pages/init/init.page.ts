@@ -53,6 +53,11 @@ export class InitPage implements OnInit {
             name: 'Fab',
             redirectTo: '/fab',
         },
+        {
+            icon: 'grid-outline',
+            name: 'Grid',
+            redirectTo: '/grid',
+        },
     ];
 
     constructor() {}
