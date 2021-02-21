@@ -53,10 +53,20 @@ const routes: Routes = [
                 (m) => m.CardPageModule
             ),
     },
-  {
-    path: 'check',
-    loadChildren: () => import('./pages/check/check.module').then( m => m.CheckPageModule)
-  },
+    {
+        path: 'check',
+        loadChildren: () =>
+            import('./pages/check/check.module').then(
+                (m) => m.CheckPageModule
+            ),
+    },
+    {
+        path: 'date-time',
+        loadChildren: () =>
+            import('./pages/datetime/datetime.module').then(
+                (m) => m.DatetimePageModule
+            ),
+    },
 ];
 
 @NgModule({
