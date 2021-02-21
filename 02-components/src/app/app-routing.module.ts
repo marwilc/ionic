@@ -74,10 +74,20 @@ const routes: Routes = [
                 (m) => m.FabPageModule
             ),
     },
-  {
-    path: 'grid',
-    loadChildren: () => import('./pages/grid/grid.module').then( m => m.GridPageModule)
-  },
+    {
+        path: 'grid',
+        loadChildren: () =>
+            import('./pages/grid/grid.module').then(
+                (m) => m.GridPageModule
+            ),
+    },
+    {
+        path: 'infinity-scroll',
+        loadChildren: () =>
+            import(
+                './pages/infinity-scroll/infinity-scroll.module'
+            ).then((m) => m.InfinityScrollPageModule),
+    },
 ];
 
 @NgModule({

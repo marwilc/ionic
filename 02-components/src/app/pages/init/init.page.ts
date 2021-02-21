@@ -58,6 +58,11 @@ export class InitPage implements OnInit {
             name: 'Grid',
             redirectTo: '/grid',
         },
+        {
+            icon: 'infinite-outline',
+            name: 'Infinity Scroll',
+            redirectTo: '/infinity-scroll',
+        },
     ];
 
     constructor() {}
