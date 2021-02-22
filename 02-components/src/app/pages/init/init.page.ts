@@ -68,6 +68,11 @@ export class InitPage implements OnInit {
             name: 'Input',
             redirectTo: '/input',
         },
+        {
+            icon: 'list-outline',
+            name: 'List',
+            redirectTo: '/list',
+        },
     ];
 
     constructor() {}
