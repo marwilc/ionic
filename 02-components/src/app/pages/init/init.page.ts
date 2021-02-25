@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-interface IComponent {
-    icon: string;
-    name: string;
-    redirectTo: string;
-}
+import { MenuController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { IComponent } from 'src/app/interfaces/component';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
     selector: 'app-init',
@@ -12,80 +10,14 @@ interface IComponent {
     styleUrls: ['./init.page.scss'],
 })
 export class InitPage implements OnInit {
-    components: IComponent[] = [
-        {
-            icon: 'american-football-outline',
-            name: 'Action Sheet',
-            redirectTo: '/action-sheet',
-        },
-        {
-            icon: 'alert-circle-outline',
-            name: 'Alert',
-            redirectTo: '/alert',
-        },
-        {
-            icon: 'beaker-outline',
-            name: 'Avatar',
-            redirectTo: '/avatar',
-        },
-        {
-            icon: 'radio-button-off-outline',
-            name: 'Button',
-            redirectTo: '/button',
-        },
-        {
-            icon: 'card-outline',
-            name: 'Card',
-            redirectTo: '/card',
-        },
-        {
-            icon: 'checkmark-circle-outline',
-            name: 'Checks',
-            redirectTo: '/check',
-        },
-        {
-            icon: 'calendar-outline',
-            name: 'DateTime',
-            redirectTo: '/date-time',
-        },
-        {
-            icon: 'car-outline',
-            name: 'Fab',
-            redirectTo: '/fab',
-        },
-        {
-            icon: 'grid-outline',
-            name: 'Grid',
-            redirectTo: '/grid',
-        },
-        {
-            icon: 'infinite-outline',
-            name: 'Infinity Scroll',
-            redirectTo: '/infinity-scroll',
-        },
-        {
-            icon: 'hammer-outline',
-            name: 'Input',
-            redirectTo: '/input',
-        },
-        {
-            icon: 'list-outline',
-            name: 'List',
-            redirectTo: '/list',
-        },
-        {
-            icon: 'reorder-three-outline',
-            name: 'List - Reorder',
-            redirectTo: '/list-reorder',
-        },
-        {
-            icon: 'refresh-circle-outline',
-            name: 'Loading',
-            redirectTo: '/loading',
-        },
-    ];
+    components: Observable<IComponent[]>;
 
-    constructor() {}
+    constructor(
+        private _menu: MenuController,
+        private dataService: DataService
+    ) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.components = this.dataService.getMenuOpts();
+    }
 }
