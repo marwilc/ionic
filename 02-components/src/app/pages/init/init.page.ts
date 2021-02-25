@@ -73,6 +73,11 @@ export class InitPage implements OnInit {
             name: 'List',
             redirectTo: '/list',
         },
+        {
+            icon: 'reorder-three-outline',
+            name: 'List - Reorder',
+            redirectTo: '/list-reorder',
+        },
     ];
 
     constructor() {}

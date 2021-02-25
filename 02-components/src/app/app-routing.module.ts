@@ -102,6 +102,13 @@ const routes: Routes = [
                 (m) => m.ListPageModule
             ),
     },
+    {
+        path: 'list-reorder',
+        loadChildren: () =>
+            import('./pages/list-reorder/list-reorder.module').then(
+                (m) => m.ListReorderPageModule
+            ),
+    },
 ];
 
 @NgModule({
