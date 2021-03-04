@@ -131,6 +131,10 @@ const routes: Routes = [
     path: 'popover-info',
     loadChildren: () => import('./pages/popover-info/popover-info.module').then( m => m.PopoverInfoPageModule)
   },
+  {
+    path: 'progress',
+    loadChildren: () => import('./pages/progress/progress.module').then( m => m.ProgressPageModule)
+  },
 ];
 
 @NgModule({
