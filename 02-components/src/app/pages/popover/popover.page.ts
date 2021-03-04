@@ -19,7 +19,9 @@ export class PopoverPage implements OnInit {
             event: ev,
             translucent: true,
         });
-
         await popover.present();
+        const { data } = await popover.onWillDismiss();
+
+        console.log(data);
     }
 }
