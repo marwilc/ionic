@@ -26,4 +26,10 @@ export class DataService {
             '/assets/data/menu-opts.json'
         );
     }
+
+    getHeros(): Observable<IComponent[]> {
+        return this._http.get<IComponent[]>(
+            '/assets/data/superheroes.json'
+        );
+    }
 }
