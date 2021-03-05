@@ -8,6 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class SearchBarPage implements OnInit {
     albums: any[] = [];
+    searchText: string;
 
     constructor(private _dataService: DataService) {}
 
@@ -18,6 +19,8 @@ export class SearchBarPage implements OnInit {
     }
 
     onSearchChange(event) {
+        const { detail } = event;
+        this.searchText = detail.value;
         console.log(event);
     }
 }
