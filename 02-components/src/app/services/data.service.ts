@@ -15,6 +15,12 @@ export class DataService {
         );
     }
 
+    getAlbums() {
+        return this._http.get<any[]>(
+            'https://jsonplaceholder.typicode.com/albums'
+        );
+    }
+
     getMenuOpts(): Observable<IComponent[]> {
         return this._http.get<IComponent[]>(
             '/assets/data/menu-opts.json'

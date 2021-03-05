@@ -139,6 +139,10 @@ const routes: Routes = [
     path: 'refresher',
     loadChildren: () => import('./pages/refresher/refresher.module').then( m => m.RefresherPageModule)
   },
+  {
+    path: 'search-bar',
+    loadChildren: () => import('./pages/search-bar/search-bar.module').then( m => m.SearchBarPageModule)
+  },
 ];
 
 @NgModule({
