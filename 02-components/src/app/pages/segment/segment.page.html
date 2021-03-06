@@ -28,7 +28,8 @@
 
     <ion-list>
 
-        <ion-item *ngFor="let hero of (superHeros | async) | filter : segmentSelected : 'publisher'">
+        <ion-item *ngFor="let hero of (superHeros | async) | filter : segmentSelected : 'publisher'"
+                  class="animate__animated animate__fadeIn animate__faster">
             <ion-label>
                 <h3>{{hero.superhero}} <small>{{hero.alter_ego}}</small></h3>
                 <p>{{hero.first_appearance}}</p>
@@ -38,6 +39,28 @@
             <ion-label slot="end"
                        class="ion-text-right">{{hero.publisher}}
             </ion-label>
+        </ion-item>
+    </ion-list>
+
+
+    <ion-list *ngIf="!(superHeros | async)">
+
+        <ion-item *ngFor="let  item of [1,1,1,1,1,1]">
+            <ion-label>
+                <h3>
+                    <ion-skeleton-text animated
+                                       style="width: 70%"></ion-skeleton-text>
+                </h3>
+                <p>
+                    <ion-skeleton-text animated
+                                       style="width: 100%"></ion-skeleton-text>
+                </p>
+            </ion-label>
+
+            <ion-skeleton-text animated
+                               slot="end"
+                               style="width: 40px ; height: 40px;">
+            </ion-skeleton-text>
         </ion-item>
     </ion-list>
 
