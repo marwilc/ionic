@@ -1,0 +1,17 @@
+<ion-card>
+    <ion-card-header>
+
+        <ion-card-subtitle class="noticia-source-name"> <span class="text-primary">{{ index }}. </span> {{new.source.name}}</ion-card-subtitle>
+        <ion-card-title>{{new.title}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-img *ngIf="new.urlToImage"
+             [src]="new.urlToImage"></ion-img>
+
+    <ion-card-content>
+        <p>
+            {{new.description}}
+        </p>
+    </ion-card-content>
+
+</ion-card>
