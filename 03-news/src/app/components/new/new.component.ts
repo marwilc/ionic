@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Plugins } from '@capacitor/core';
 import { Article } from 'src/app/interfaces/interfaces';
+
+const { Browser } = Plugins;
 
 @Component({
   selector: 'app-new',
@@ -12,4 +15,8 @@ export class NewComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  async showNew() {
+    await Browser.open({ url: this.new.url });
+  }
 }
