@@ -54,11 +54,24 @@ export class Tab2Page implements OnInit, AfterViewInit, OnDestroy {
     this.loadNews(detail.value);
   }
 
-  loadNews(category: string) {
+  loadData(event) {
+    this.loadNews(this.segment.value, event);
+  }
+
+  loadNews(category: string, event?) {
     this._subscription.add(
       this._news.getTopHeadlinesCategory(category).subscribe((resp) => {
-        console.log(resp);
+        if (resp.articles.length === 0) {
+          event.target.disabled = true;
+          event.target.complete();
+          return;
+        }
+
         this.news.push(...resp.articles);
+
+        if (event) {
+          event.target.complete();
+        }
       })
     );
   }

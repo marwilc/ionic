@@ -30,8 +30,6 @@ export class Tab1Page implements OnInit, OnDestroy {
   loadNews(event?) {
     this._subscription.add(
       this._news.getTopHeadLines().subscribe((response) => {
-        console.log(response);
-
         if (response.articles.length === 0) {
           event.target.disabled = true;
           event.target.complete();

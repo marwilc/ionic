@@ -10,6 +10,8 @@ const headers = new HttpHeaders({ 'X-Api-key': environment.apiKey });
 })
 export class NewsService {
   headLinesPage = 0;
+  currentCategory = '';
+  pageCategory = 0;
   constructor(private http: HttpClient) {}
 
   private executeQuery<T>(query: string): Observable<T> {
@@ -38,8 +40,15 @@ export class NewsService {
    * @memberof NewsService
    */
   getTopHeadlinesCategory(category: string): Observable<ResponseTopHeadlines> {
+    if (this.currentCategory === category) {
+      this.pageCategory++;
+    } else {
+      this.pageCategory = 1;
+      this.currentCategory = category;
+    }
+
     return this.executeQuery<ResponseTopHeadlines>(
-      `/top-headlines?country=us&category=${category}`
+      `/top-headlines?country=us&category=${category}&page=${this.pageCategory}`
     );
   }
 }
