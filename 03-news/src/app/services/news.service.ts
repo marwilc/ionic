@@ -9,6 +9,7 @@ const headers = new HttpHeaders({ 'X-Api-key': environment.apiKey });
   providedIn: 'root',
 })
 export class NewsService {
+  headLinesPage = 0;
   constructor(private http: HttpClient) {}
 
   private executeQuery<T>(query: string): Observable<T> {
@@ -23,7 +24,10 @@ export class NewsService {
    * @memberof NewsService
    */
   getTopHeadLines(): Observable<ResponseTopHeadlines> {
-    return this.executeQuery<ResponseTopHeadlines>(`/top-headlines?country=us`);
+    this.headLinesPage++;
+    return this.executeQuery<ResponseTopHeadlines>(
+      `/top-headlines?country=us&page=${this.headLinesPage}`
+    );
   }
 
   /**

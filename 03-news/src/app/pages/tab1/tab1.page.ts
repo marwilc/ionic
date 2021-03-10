@@ -20,10 +20,29 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loadNews();
+  }
+
+  loadData(event) {
+    this.loadNews(event);
+  }
+
+  loadNews(event?) {
     this._subscription.add(
       this._news.getTopHeadLines().subscribe((response) => {
         console.log(response);
+
+        if (response.articles.length === 0) {
+          event.target.disabled = true;
+          event.target.complete();
+          return;
+        }
+
         this.news.push(...response.articles);
+
+        if (event) {
+          event.target.complete();
+        }
       })
     );
   }
