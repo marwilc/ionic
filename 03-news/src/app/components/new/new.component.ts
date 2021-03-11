@@ -3,7 +3,7 @@ import { Plugins } from '@capacitor/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Article } from 'src/app/interfaces/interfaces';
 
-const { Browser } = Plugins;
+const { Browser, Share } = Plugins;
 
 @Component({
   selector: 'app-new',
@@ -29,7 +29,7 @@ export class NewComponent implements OnInit {
           text: 'Share',
           icon: 'share',
           handler: () => {
-            console.log('Share clicked');
+            this.share();
           },
         },
         {
@@ -50,5 +50,14 @@ export class NewComponent implements OnInit {
       ],
     });
     await actionSheet.present();
+  }
+
+  async share() {
+    let shareRet = await Share.share({
+      title: this.new.title,
+      text: this.new.source.name,
+      url: this.new.url,
+      dialogTitle: 'Share with buddies',
+    });
   }
 }
