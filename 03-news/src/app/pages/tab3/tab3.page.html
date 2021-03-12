@@ -9,7 +9,14 @@
 
 <ion-content [fullscreen]="true">
 
-    <app-news [news]="dataLocal.news">
+    <ion-slides *ngIf="dataLocal.news.length === 0"
+                [options]="slideOpt">
+        <ion-slide>
+            <h1>No favorites</h1>
+        </ion-slide>
+    </ion-slides>
+    <app-news *ngIf="dataLocal.news.length > 0"
+              [news]="dataLocal.news">
 
     </app-news>
 </ion-content>

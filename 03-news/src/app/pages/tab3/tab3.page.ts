@@ -7,5 +7,10 @@ import { LocalDataService } from 'src/app/services/local-data.service';
   styleUrls: ['tab3.page.scss'],
 })
 export class Tab3Page {
+  slideOpt = {
+    allowSlidePrev: false,
+    allowSlideNext: false,
+  };
+
   constructor(public dataLocal: LocalDataService) {}
 }
