@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Article } from 'src/app/interfaces/interfaces';
+import { LocalDataService } from 'src/app/services/local-data.service';
 
 const { Browser, Share } = Plugins;
 
@@ -14,7 +15,10 @@ export class NewComponent implements OnInit {
   @Input() new: Article;
   @Input() index: number;
 
-  constructor(private _actionSheet: ActionSheetController) {}
+  constructor(
+    private _localData: LocalDataService,
+    private _actionSheet: ActionSheetController
+  ) {}
 
   ngOnInit() {}
 
@@ -36,7 +40,7 @@ export class NewComponent implements OnInit {
           text: 'Favorites',
           icon: 'star',
           handler: () => {
-            console.log('Favorites');
+            this._localData.saveNew(this.new);
           },
         },
         {

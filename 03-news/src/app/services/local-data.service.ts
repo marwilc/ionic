@@ -10,7 +10,9 @@ const { Storage } = Plugins;
 export class LocalDataService {
   news: Article[] = [];
 
-  constructor() {}
+  constructor() {
+    this.loadFavorites();
+  }
 
   async saveNew(notice: Article) {
     const exist = this.news.find((n) => n.title === notice.title);
@@ -18,6 +20,14 @@ export class LocalDataService {
     if (!exist) {
       this.news.unshift(notice);
       await Storage.set({ key: 'favorites', value: JSON.stringify(this.news) });
+    }
+  }
+
+  async loadFavorites() {
+    const { value } = await Storage.get({ key: 'favorites' });
+
+    if (value) {
+      this.news = JSON.parse(value);
     }
   }
 }
