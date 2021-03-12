@@ -14,6 +14,7 @@ const { Browser, Share } = Plugins;
 export class NewComponent implements OnInit {
   @Input() new: Article;
   @Input() index: number;
+  @Input() inFavorites;
 
   constructor(
     private _localData: LocalDataService,
@@ -27,6 +28,26 @@ export class NewComponent implements OnInit {
   }
 
   async launchMenu() {
+    let saveDeleteBtn;
+
+    if (this.inFavorites) {
+      saveDeleteBtn = {
+        text: 'Delete Favorite',
+        icon: 'trash',
+        handler: () => {
+          this._localData.deleteNew(this.new);
+        },
+      };
+    } else {
+      saveDeleteBtn = {
+        text: 'Favorites',
+        icon: 'star',
+        handler: () => {
+          this._localData.saveNew(this.new);
+        },
+      };
+    }
+
     const actionSheet = await this._actionSheet.create({
       buttons: [
         {
@@ -36,13 +57,7 @@ export class NewComponent implements OnInit {
             this.share();
           },
         },
-        {
-          text: 'Favorites',
-          icon: 'star',
-          handler: () => {
-            this._localData.saveNew(this.new);
-          },
-        },
+        saveDeleteBtn,
         {
           text: 'Cancel',
           icon: 'close',
@@ -57,7 +72,7 @@ export class NewComponent implements OnInit {
   }
 
   async share() {
-    let shareRet = await Share.share({
+    const shareRet = await Share.share({
       title: this.new.title,
       text: this.new.source.name,
       url: this.new.url,

@@ -30,4 +30,9 @@ export class LocalDataService {
       this.news = JSON.parse(value);
     }
   }
+
+  async deleteNew(notice: Article) {
+    this.news = this.news.filter((n) => n.title !== notice.title);
+    await Storage.set({ key: 'favorites', value: JSON.stringify(this.news) });
+  }
 }
