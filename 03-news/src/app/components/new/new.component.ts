@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Plugins } from '@capacitor/core';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, Platform } from '@ionic/angular';
 import { Article } from 'src/app/interfaces/interfaces';
 import { LocalDataService } from 'src/app/services/local-data.service';
 
@@ -18,7 +18,8 @@ export class NewComponent implements OnInit {
 
   constructor(
     private _localData: LocalDataService,
-    private _actionSheet: ActionSheetController
+    private _actionSheet: ActionSheetController,
+    private _platform: Platform
   ) {}
 
   ngOnInit() {}
@@ -72,11 +73,24 @@ export class NewComponent implements OnInit {
   }
 
   async share() {
-    const shareRet = await Share.share({
-      title: this.new.title,
-      text: this.new.source.name,
-      url: this.new.url,
-      dialogTitle: 'Share with buddies',
-    });
+    if (this._platform.is('capacitor')) {
+      const shareRet = await Share.share({
+        title: this.new.title,
+        text: this.new.source.name,
+        url: this.new.url,
+        dialogTitle: 'Share with buddies',
+      });
+    } else {
+      if (navigator.share) {
+        navigator
+          .share({
+            title: this.new.title,
+            text: this.new.source.name,
+            url: this.new.url,
+          })
+          .then(() => console.log('Successful share'))
+          .catch((error) => console.log('Error sharing', error));
+      }
+    }
   }
 }
