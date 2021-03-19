@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { MovieDbResponse } from '../interfaces/interfaces';
+
+const URL = environment.url;
+const API_KEY = environment.apiKey;
 
 @Injectable({
   providedIn: 'root',
@@ -8,9 +12,36 @@ import { MovieDbResponse } from '../interfaces/interfaces';
 export class MoviesService {
   constructor(private _http: HttpClient) {}
 
+  private executeQuery<T>(query: string) {
+    query = URL + query;
+    query += `&api_key=${API_KEY}&language=en`;
+
+    return this._http.get<T>(query);
+  }
+
   getFeature() {
-    return this._http.get<MovieDbResponse>(
-      `https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2021-01-01&primary_release_date.lte=2021-12-31&api_key=ec1c7069e212e891e1e07a28a2701ec1&language=en`
+    const today = new Date();
+    const lastDay = new Date(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      0
+    ).getDate();
+
+    const month = today.getMonth() + 1;
+
+    let monthString;
+
+    if (month < 10) {
+      monthString = '0' + month;
+    } else {
+      monthString = month;
+    }
+
+    const init = `${today.getUTCFullYear()}-${monthString}-01`;
+    const end = `${today.getUTCFullYear()}-${monthString}-${lastDay}`;
+
+    return this.executeQuery<MovieDbResponse>(
+      `/discover/movie?primary_release_date.gte=${init}&primary_release_date.lte=${end}`
     );
   }
 }
