@@ -19,6 +19,12 @@ export class MoviesService {
     return this._http.get<T>(query);
   }
 
+  getPopular() {
+    const query = '/discover/movie?sort_by=popularity.desc';
+
+    return this.executeQuery<MovieDbResponse>(query);
+  }
+
   getFeature() {
     const today = new Date();
     const lastDay = new Date(
