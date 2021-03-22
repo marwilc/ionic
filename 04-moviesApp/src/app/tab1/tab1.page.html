@@ -36,7 +36,8 @@
         </ion-row>
     </ion-grid>
 
-    <app-slide-show-par [movies]="popular">
+    <app-slide-show-par [movies]="popular"
+                        (loadMoreMovies)="loadPopular()">
 
     </app-slide-show-par>
 
