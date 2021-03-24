@@ -4,7 +4,8 @@
         <ion-row>
             <ion-col size="12"
                      *ngFor="let movie of par">
-                <ion-card class="poster">
+                <ion-card class="poster"
+                          (click)="showDetail(movie.id)">
                     <img [src]="movie.poster_path | image">
                 </ion-card>
             </ion-col>

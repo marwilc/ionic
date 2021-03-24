@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { MovieDbResponse } from '../interfaces/interfaces';
+import { Credits, Movie, MovieDbResponse } from '../interfaces/interfaces';
 
 const URL = environment.url;
 const API_KEY = environment.apiKey;
@@ -52,5 +52,13 @@ export class MoviesService {
     return this.executeQuery<MovieDbResponse>(
       `/discover/movie?primary_release_date.gte=${init}&primary_release_date.lte=${end}`
     );
+  }
+
+  getMovieDetail(id: string) {
+    return this.executeQuery<Movie>(`/movie/${id}?a=1`);
+  }
+
+  getActors(id: string) {
+    return this.executeQuery<Credits>(`/movie/${id}/credits?a=1`);
   }
 }
