@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Movie } from 'src/app/interfaces/interfaces';
 import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { MoviesService } from 'src/app/services/movies.service';
 })
 export class DetailComponent implements OnInit, OnDestroy {
   @Input() id: string;
+  movie: Movie;
 
   private _subscription = new Subscription();
 
@@ -20,8 +22,8 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._subscription.add(
-      this._movies.getMovieDetail(this.id).subscribe((data) => {
-        console.log(data);
+      this._movies.getMovieDetail(this.id).subscribe((movie) => {
+        this.movie = movie;
       })
     );
 
