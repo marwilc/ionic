@@ -38,10 +38,15 @@
 }
 
 .card-actor {
-  height: 210px;
+  flex-direction: column;
+  display: flex;
 }
 
 .actor-name {
   position: relative;
   top: 15px;
+}
+
+.img-actor {
+  max-height: 90%;
 }
