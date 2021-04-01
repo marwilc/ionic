@@ -18,6 +18,46 @@
 
 <ion-content [fullscreen]="true">
 
+
+    <ion-list *ngIf="movies.length === 0">
+        <ion-list-header>
+            <ion-label>Ideas</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let idea of ideas"
+                  button
+                  (click)="pasteToSearch(idea)">
+            <ion-label color="primary">{{idea}}</ion-label>
+        </ion-item>
+    </ion-list>
+
+
+
+    <ion-grid fixed
+              *ngIf="!searchingMovies; else spinner">
+        <ion-row>
+            <ion-col size="6"
+                     *ngFor="let movie of movies">
+                <ion-card (click)="movieDetails(movie)">
+                    <img [src]="movie.poster_path | image">
+
+                    <ion-card-header>
+                        <ion-card-subtitle>{{movie.release_date}}</ion-card-subtitle>
+                    </ion-card-header>
+
+                    <ion-card-content>
+                        <h2>{{movie.title}}</h2>
+                    </ion-card-content>
+                </ion-card>
+
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
+
+
+<ng-template #spinner>
     <ion-grid>
         <ion-row>
             <ion-col class="ion-text-center">
@@ -25,18 +65,4 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-
-    <ion-list>
-        <ion-list-header>
-            <ion-label>Ideas</ion-label>
-        </ion-list-header>
-    </ion-list>
-
-    <ion-item *ngFor="let idea of ideas"
-              button
-              (click)="pasteToSearch(idea)">
-        <ion-label color="primary">{{idea}}</ion-label>
-    </ion-item>
-
-
-</ion-content>
+</ng-template>

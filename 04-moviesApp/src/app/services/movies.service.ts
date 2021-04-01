@@ -10,9 +10,8 @@ const API_KEY = environment.apiKey;
   providedIn: 'root',
 })
 export class MoviesService {
-  popularPage = 0;
-
   constructor(private _http: HttpClient) {}
+  popularPage = 0;
 
   private executeQuery<T>(query: string) {
     query = URL + query;
@@ -60,5 +59,9 @@ export class MoviesService {
 
   getActors(id: string) {
     return this.executeQuery<Credits>(`/movie/${id}/credits?a=1`);
+  }
+
+  searchMovies(search: string) {
+    return this.executeQuery<MovieDbResponse>(`/search/movie?query=${search}`);
   }
 }
