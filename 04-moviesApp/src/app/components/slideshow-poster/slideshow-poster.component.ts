@@ -20,7 +20,7 @@ export class SlideshowPosterComponent implements OnInit {
 
   ngOnInit() {}
 
-  async showDetail(id: string) {
+  async showDetail(id: number) {
     const movieDetailModal = await this._modal.create({
       component: DetailComponent,
       componentProps: {
