@@ -6,7 +6,8 @@
                      *ngFor="let movie of par">
                 <ion-card class="poster"
                           (click)="showDetail(movie.id)">
-                    <img [src]="movie.poster_path | image">
+                    <img [src]="movie.poster_path | image"
+                         [ngStyle]="{'object-fit': 'cover', 'height': '100%'}">
                 </ion-card>
             </ion-col>
         </ion-row>

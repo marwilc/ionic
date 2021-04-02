@@ -7,9 +7,9 @@ const URL = environment.imgPath;
   name: 'image',
 })
 export class ImagePipe implements PipeTransform {
-  transform(image: string, size: string = 'w500'): string {
+  transform(image: string, size: string = 'w500', avatar?: boolean): string {
     if (!image) {
-      return 'assets/no-image-banner.jpg';
+      return avatar ? 'assets/no-avatar.jpg' : 'assets/no-image-banner.jpg';
     }
 
     return `${URL}/${size}${image}`;

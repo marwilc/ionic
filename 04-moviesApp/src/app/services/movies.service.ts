@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Credits, Movie, MovieDbResponse } from '../interfaces/interfaces';
+import {
+  Credits,
+  GenreResponse,
+  Movie,
+  MovieDbResponse,
+} from '../interfaces/interfaces';
 
 const URL = environment.url;
 const API_KEY = environment.apiKey;
@@ -63,5 +68,9 @@ export class MoviesService {
 
   searchMovies(search: string) {
     return this.executeQuery<MovieDbResponse>(`/search/movie?query=${search}`);
+  }
+
+  loadGenres() {
+    return this.executeQuery<GenreResponse>(`/genre/movie/list?a=1`);
   }
 }

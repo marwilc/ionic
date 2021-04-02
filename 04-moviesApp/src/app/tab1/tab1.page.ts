@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Movie } from '../interfaces/interfaces';
 import { MoviesService } from '../services/movies.service';
 
@@ -7,25 +8,32 @@ import { MoviesService } from '../services/movies.service';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page implements OnInit, OnDestroy {
   movies: Movie[] = [];
   popular: Movie[] = [];
+  private _subscription = new Subscription();
 
   constructor(private _movies: MoviesService) {}
 
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
+  }
+
   ngOnInit(): void {
-    this._movies.getFeature().subscribe((data) => {
-      console.log(data);
-      this.movies = data.results;
-    });
+    this._subscription.add(
+      this._movies.getFeature().subscribe((data) => {
+        this.movies = data.results;
+      })
+    );
 
     this.loadPopular();
   }
 
   loadPopular() {
-    this._movies.getPopular().subscribe((data) => {
-      console.log(data);
-      this.popular = this.popular.concat(data.results);
-    });
+    this._subscription.add(
+      this._movies.getPopular().subscribe((data) => {
+        this.popular = this.popular.concat(data.results);
+      })
+    );
   }
 }

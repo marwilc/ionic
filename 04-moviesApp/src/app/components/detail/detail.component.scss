@@ -40,6 +40,7 @@
 .card-actor {
   flex-direction: column;
   display: flex;
+  height: 180px;
 }
 
 .actor-name {
@@ -49,4 +50,14 @@
 
 .img-actor {
   max-height: 90%;
+  object-fit: cover;
+}
+
+.label-actor {
+  align-items: center;
+  /* align-content: center; */
+  justify-content: center;
+  /* justify-items: center; */
+  display: flex;
+  height: 100%;
 }

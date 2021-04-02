@@ -77,9 +77,10 @@
         <ion-slide *ngFor="let actor of actors"
                    [ngStyle]="{'width': '145px'}">
             <ion-card class="card-actor">
-                <img [src]="actor.profile_path | image"
+                <img [src]="actor.profile_path | image: 'w500' : true"
                      class="img-actor">
-                <ion-label [ngStyle]="{'padding': '5px'}">{{actor.name}}</ion-label>
+                <ion-label [ngStyle]="{'padding': '5px'}"
+                           class="label-actor">{{actor.name}}</ion-label>
             </ion-card>
         </ion-slide>
     </ion-slides>
@@ -100,7 +101,7 @@
             <ion-button (click)="favorite()">
                 <ion-label>Favorite</ion-label>
                 <ion-icon slot="end"
-                          name="star-outline"></ion-icon>
+                          [name]="existsMovie ? 'star' : 'star-outline'"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
