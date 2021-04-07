@@ -11,6 +11,10 @@ import { MoviesService } from '../services/movies.service';
 export class Tab1Page implements OnInit, OnDestroy {
   movies: Movie[] = [];
   popular: Movie[] = [];
+  loadingFeatureMovies = true;
+  loadingPopularMovies = true;
+  loadingFeatureMoviesError = false;
+  loadingPopularMoviesError = false;
   private _subscription = new Subscription();
 
   constructor(private _movies: MoviesService) {}
@@ -20,20 +24,37 @@ export class Tab1Page implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._subscription.add(
-      this._movies.getFeature().subscribe((data) => {
-        this.movies = data.results;
-      })
-    );
-
+    this.loadFeatureMovies();
     this.loadPopular();
+  }
+
+  loadFeatureMovies() {
+    this._subscription.add(
+      this._movies.getFeature().subscribe(
+        (data) => {
+          this.movies = data.results;
+          this.loadingFeatureMovies = false;
+        },
+        (error) => {
+          this.loadingFeatureMovies = false;
+          this.loadingFeatureMoviesError = true;
+        }
+      )
+    );
   }
 
   loadPopular() {
     this._subscription.add(
-      this._movies.getPopular().subscribe((data) => {
-        this.popular = this.popular.concat(data.results);
-      })
+      this._movies.getPopular().subscribe(
+        (data) => {
+          this.popular = this.popular.concat(data.results);
+          this.loadingPopularMovies = false;
+        },
+        (error) => {
+          this.loadingPopularMovies = false;
+          this.loadingPopularMoviesError = true;
+        }
+      )
     );
   }
 }

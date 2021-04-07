@@ -9,7 +9,8 @@
         </ion-row>
     </ion-grid>
 
-    <app-slideshow-backdrop [movies]="movies">
+    <app-slideshow-backdrop *ngIf="!loadingFeatureMovies; else spinner"
+                            [movies]="movies | filterBackdrop">
 
     </app-slideshow-backdrop>
 
@@ -22,7 +23,8 @@
         </ion-row>
     </ion-grid>
 
-    <app-slideshow-poster [movies]="movies">
+    <app-slideshow-poster *ngIf="!loadingFeatureMovies; else spinner"
+                          [movies]="movies">
 
     </app-slideshow-poster>
 
@@ -36,10 +38,15 @@
         </ion-row>
     </ion-grid>
 
-    <app-slide-show-par [movies]="popular"
+    <app-slide-show-par *ngIf="!loadingPopularMovies; else spinner"
+                        [movies]="popular"
                         (loadMoreMovies)="loadPopular()">
 
     </app-slide-show-par>
 
 
 </ion-content>
+
+<ng-template #spinner>
+    <app-spinner></app-spinner>
+</ng-template>
