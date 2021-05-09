@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BarcodeService } from 'src/app/services';
+import { Platform } from '@ionic/angular';
+import { BarcodeService, DataLocalService } from 'src/app/services';
 
 @Component({
   selector: 'app-tab1',
@@ -12,14 +13,27 @@ export class Tab1Page {
     allowSlideNext: false,
   };
 
-  constructor(private _barcode: BarcodeService) {}
+  constructor(
+    private _barcode: BarcodeService,
+    private _dataLocal: DataLocalService,
+    private _platform: Platform
+  ) {}
 
   ionViewDidEnter() {}
 
   ionViewDidLeave() {}
 
   async scan() {
-    const scanResult = await this._barcode.scan();
-    console.log(scanResult);
+    if (this._platform.is('cordova')) {
+      const scanResult = await this._barcode.scan();
+
+      if (!scanResult.cancelled) {
+        this._dataLocal.saveRegister(scanResult.format, scanResult.text);
+      }
+
+      console.log(scanResult);
+    } else {
+      this._dataLocal.saveRegister('QRCODE', 'https://google.com');
+    }
   }
 }
