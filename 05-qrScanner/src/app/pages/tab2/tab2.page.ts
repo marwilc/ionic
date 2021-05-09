@@ -16,5 +16,7 @@ export class Tab2Page {
     await this.dataLocal.loadRegisters();
   }
 
-  openRegister(register: Barcode) {}
+  openRegister(register: Barcode) {
+    this.dataLocal.openRegister(register);
+  }
 }
