@@ -10,11 +10,11 @@ import { DataLocalService } from 'src/app/services';
 export class Tab2Page {
   constructor(public dataLocal: DataLocalService) {}
 
-  sendEmail() {
-    console.log('send email');
+  sendEmail() {}
+
+  async ionViewDidEnter() {
+    await this.dataLocal.loadRegisters();
   }
 
-  openRegister(register: Barcode) {
-    console.log(register);
-  }
+  openRegister(register: Barcode) {}
 }
