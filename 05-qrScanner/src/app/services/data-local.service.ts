@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Plugins } from '@capacitor/core';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { NavController } from '@ionic/angular';
 import { Barcode } from '../models/barcode.model';
@@ -16,7 +17,8 @@ export class DataLocalService {
   constructor(
     private storage: StorageService,
     private navCtrl: NavController,
-    private _file: File
+    private _file: File,
+    private emailComposer: EmailComposer
   ) {}
 
   async saveRegister(format: string, text: string) {
@@ -89,11 +91,26 @@ export class DataLocalService {
     }
   }
 
-  writeFile(text: string) {
-    this._file.writeExistingFile(
+  async writeFile(text: string) {
+    await this._file.writeExistingFile(
       this._file.dataDirectory,
       'registers.csv',
       text
     );
+
+    const file = `${this._file.dataDirectory}/registers.csv`;
+
+    const email = {
+      to: 'marwilcampos@gmail.com',
+      // cc: 'erika@mustermann.de',
+      // bcc: ['john@doe.com', 'jane@doe.com'],
+      attachments: [file],
+      subject: 'Backup de scans',
+      body: 'Aqui tienen sus backups de los scans- <strong>ScanApp</strong>',
+      isHtml: true,
+    };
+
+    // Send a text message using default options
+    this.emailComposer.open(email);
   }
 }
