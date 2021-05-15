@@ -22,9 +22,9 @@ export class Barcode {
         this.icon = 'globe';
         break;
 
-      case 'geo':
-        this.type = 'http';
-        this.icon = 'globe';
+      case 'geo:':
+        this.type = 'geo';
+        this.icon = 'pin';
         break;
 
       default:

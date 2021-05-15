@@ -17,6 +17,7 @@ export class Tab2Page {
   }
 
   openRegister(register: Barcode) {
+    console.log(register);
     this.dataLocal.openRegister(register);
   }
 }

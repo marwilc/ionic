@@ -37,6 +37,11 @@ export class DataLocalService {
         await Browser.open({ url: register.text });
         break;
 
+      case 'geo':
+        // open browser
+        await this.navCtrl.navigateForward(`/tabs/tab2/map/${register.text}`);
+        break;
+
       default:
         break;
     }

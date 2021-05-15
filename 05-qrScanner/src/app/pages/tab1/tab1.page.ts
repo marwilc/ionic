@@ -33,7 +33,10 @@ export class Tab1Page {
 
       console.log(scanResult);
     } else {
-      this._dataLocal.saveRegister('QRCODE', 'https://google.com');
+      this._dataLocal.saveRegister(
+        'QRCODE',
+        'geo:40.73151796986687,-74.06087294062502'
+      );
     }
   }
 }
