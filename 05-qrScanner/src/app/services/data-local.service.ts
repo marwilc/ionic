@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Plugins } from '@capacitor/core';
+import { File } from '@ionic-native/file/ngx';
 import { NavController } from '@ionic/angular';
 import { Barcode } from '../models/barcode.model';
 import { StorageService } from './storage.service';
+
 const { Browser } = Plugins;
 
 @Injectable({
@@ -13,7 +15,8 @@ export class DataLocalService {
 
   constructor(
     private storage: StorageService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private _file: File
   ) {}
 
   async saveRegister(format: string, text: string) {
@@ -62,6 +65,35 @@ export class DataLocalService {
       arrTemp.push(line);
     });
 
-    console.log(arrTemp.join(''));
+    this.createFile(arrTemp.join(''));
+  }
+
+  async createFile(text: string) {
+    try {
+      const exist = await this._file.checkFile(
+        this._file.dataDirectory,
+        'registers.csv'
+      );
+
+      if (exist) {
+        console.log('Existe archivo ?', exist);
+        this.writeFile(text);
+      }
+    } catch (error) {
+      console.log('error', error);
+
+      return this._file
+        .createFile(this._file.dataDirectory, 'registers.csv', false)
+        .then((creado) => this.writeFile(text))
+        .catch((err2) => console.log('No se pudo crear el archivo', err2));
+    }
+  }
+
+  writeFile(text: string) {
+    this._file.writeExistingFile(
+      this._file.dataDirectory,
+      'registers.csv',
+      text
+    );
   }
 }
