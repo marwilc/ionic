@@ -30,6 +30,7 @@ export class DataLocalService {
 
   async openRegister(register: Barcode) {
     this.navCtrl.navigateForward('/tabs/tab2');
+    this.sendEmail();
 
     switch (register.type) {
       case 'http':
@@ -45,5 +46,22 @@ export class DataLocalService {
       default:
         break;
     }
+  }
+
+  sendEmail() {
+    const arrTemp = [];
+    const titles = 'Tipo, Formato, Creado en, Texto\n';
+
+    arrTemp.push(titles);
+
+    this.registers.forEach((register) => {
+      const line = `${register.type}, ${register.format}, ${
+        register.created
+      }, ${register.text.replace(',', ' ')}\n`;
+
+      arrTemp.push(line);
+    });
+
+    console.log(arrTemp.join(''));
   }
 }

@@ -3,3 +3,15 @@
   height: 100% !important;
   background-color: #f6f6f4;
 }
+
+.boton-regresar {
+  position: fixed;
+  top: 40px;
+  right: 12px;
+  z-index: 1;
+  color: black;
+  --border-radius: 50%;
+  --padding-end: 0px;
+  --padding-start: 0px;
+  --margin: 0;
+}
