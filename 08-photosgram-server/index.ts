@@ -1,19 +1,23 @@
-import { Mongoose } from 'mongoose';
+import { json, urlencoded } from 'body-parser';
+import mongoose from 'mongoose';
 import Server from './class/server';
 import userRoutes from './routes/user';
 
 const server = new Server();
-const dbMongoose = new Mongoose();
+
+// body parser
+server.app.use(json());
+server.app.use(urlencoded({ extended: true }));
 
 // routes
 server.app.use('/user', userRoutes);
 
 // DB connection
-dbMongoose.connect(
+mongoose.connect(
     'mongodb://localhost:27017/photosgram',
     {
         useNewUrlParser: true,
-        useCreateIndex: true,
+        useUnifiedTopology: true,
     },
     (err) => {
         if (err) throw err;
