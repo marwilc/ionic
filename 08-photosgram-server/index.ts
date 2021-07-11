@@ -1,6 +1,7 @@
 import { json, urlencoded } from 'body-parser';
 import mongoose from 'mongoose';
 import Server from './class/server';
+import postRoutes from './routes/post';
 import userRoutes from './routes/user';
 
 const server = new Server();
@@ -11,6 +12,7 @@ server.app.use(urlencoded({ extended: true }));
 
 // routes
 server.app.use('/user', userRoutes);
+server.app.use('/posts', postRoutes);
 
 // DB connection
 mongoose.connect(
