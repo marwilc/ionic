@@ -7,7 +7,7 @@ const postSchema = new Schema({
     message: {
         type: String,
     },
-    img: [{ type: String }],
+    imgs: [{ type: String }],
     coords: {
         type: String,
     },

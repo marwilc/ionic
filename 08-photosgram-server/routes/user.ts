@@ -118,4 +118,13 @@ userRoutes.post(
     }
 );
 
+userRoutes.get('/', [checkToken], (req: any, res: Response) => {
+    const user = req.user;
+
+    res.json({
+        ok: true,
+        user,
+    });
+});
+
 export default userRoutes;

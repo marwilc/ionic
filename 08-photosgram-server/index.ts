@@ -1,4 +1,5 @@
 import { json, urlencoded } from 'body-parser';
+import fileUpload from 'express-fileupload';
 import mongoose from 'mongoose';
 import Server from './class/server';
 import postRoutes from './routes/post';
@@ -9,6 +10,9 @@ const server = new Server();
 // body parser
 server.app.use(json());
 server.app.use(urlencoded({ extended: true }));
+
+// file upload
+server.app.use(fileUpload());
 
 // routes
 server.app.use('/user', userRoutes);
