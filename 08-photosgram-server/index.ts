@@ -1,4 +1,5 @@
 import { json, urlencoded } from 'body-parser';
+import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import mongoose from 'mongoose';
 import Server from './class/server';
@@ -15,8 +16,12 @@ server.app.use(urlencoded({ extended: true }));
 server.app.use(fileUpload());
 
 // routes
+server.app.use(cors({ origin: true, credentials: true }));
+
 server.app.use('/user', userRoutes);
 server.app.use('/posts', postRoutes);
+
+// cors
 
 // DB connection
 mongoose.connect(

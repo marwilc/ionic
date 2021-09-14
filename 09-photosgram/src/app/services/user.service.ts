@@ -18,6 +18,15 @@ export class UserService {
         private navCtrl: NavController
     ) {}
 
+    getUser() {
+        // eslint-disable-next-line no-underscore-dangle
+        if (!this.user._id) {
+            this.validToken();
+        }
+
+        return { ...this.user };
+    }
+
     login(email: string, password: string) {
         const data = { email, password };
 
@@ -48,6 +57,27 @@ export class UserService {
                     }
                 })
             );
+    }
+
+    updateUser(user: User) {
+        const headers = new HttpHeaders({
+            'x-token': this.token,
+        });
+
+        return new Promise((resolve) => {
+            this.http
+                .post<any>(`${environment.url}/user/update`, user, {
+                    headers,
+                })
+                .subscribe((response) => {
+                    if (response.ok) {
+                        this.saveToken(response.token);
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                });
+        });
     }
 
     async saveToken(token: any) {
