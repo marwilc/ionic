@@ -44,6 +44,13 @@ export class UserService {
             );
     }
 
+    async logout() {
+        this.token = null;
+        this.user = null;
+        await Storage.clear();
+        this.navCtrl.navigateRoot('/login', { animated: true });
+    }
+
     register(user: User) {
         return this.http
             .post<any>(`${environment.url}/user/create`, user)
@@ -69,9 +76,9 @@ export class UserService {
                 .post<any>(`${environment.url}/user/update`, user, {
                     headers,
                 })
-                .subscribe((response) => {
+                .subscribe(async (response) => {
                     if (response.ok) {
-                        this.saveToken(response.token);
+                        await this.saveToken(response.token);
                         resolve(true);
                     } else {
                         resolve(false);
@@ -83,6 +90,7 @@ export class UserService {
     async saveToken(token: any) {
         this.token = token;
         await Storage.set({ key: 'token', value: token });
+        await this.validToken();
     }
 
     async loadToken() {

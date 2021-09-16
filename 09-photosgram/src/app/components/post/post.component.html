@@ -14,19 +14,26 @@
 
 
 
-    <ion-slides pager="true">
+    <ion-slides pager="true"
+                *ngIf="post.imgs.length > 1">
         <ion-slide class="image-slide"
-                   style="background-image: url('{{img1}}')">
+                   *ngFor="let img of post.imgs"
+                   style="background-image: url('{{img | image: post.user._id}}')">
         </ion-slide>
+
+
+    </ion-slides>
+
+    <ion-slides *ngIf="post.imgs.length === 1"
+                [options]="slideOps">
         <ion-slide class="image-slide"
-                   style="background-image: url('{{img1}}')">
-        </ion-slide>
-        <ion-slide class="image-slide"
-                   style="background-image: url('{{img1}}')">
+                   style="background-image: url('{{(post.imgs[0] | image: post.user._id)}}')">
         </ion-slide>
     </ion-slides>
 
     <!-- map -->
+    <app-map [coords]="post.coords"
+             *ngIf="post.coords"></app-map>
 
     <ion-item>
 

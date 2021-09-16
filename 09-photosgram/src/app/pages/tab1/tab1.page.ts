@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
@@ -15,10 +16,14 @@ export class Tab1Page implements OnInit {
 
     private sub = new Subscription();
 
-    constructor(private post: PostsService) {}
+    constructor(private post: PostsService, private route: Router) {}
 
     ngOnInit() {
         this.loadData();
+
+        this.post.newPost.subscribe((post) => {
+            this.posts.unshift(post);
+        });
     }
 
     doRefresh(event) {

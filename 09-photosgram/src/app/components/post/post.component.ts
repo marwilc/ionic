@@ -10,6 +10,11 @@ export class PostComponent implements OnInit {
     @Input() post: Post = null;
     img1 = '/assets/perro-1.jpg';
 
+    slideOps = {
+        allowSlideNext: false,
+        allowSlidePrev: false,
+    };
+
     constructor() {}
 
     ngOnInit() {}

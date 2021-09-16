@@ -71,15 +71,23 @@ postRoutes.post(
             });
         }
 
-        const fileSaved = await fileSystem.saveTempImage(
-            file,
-            req.user._id
-        );
+        try {
+            const fileSaved = await fileSystem.saveTempImage(
+                file,
+                req.user._id
+            );
 
-        res.json({
-            ok: false,
-            file: file.mimetype,
-        });
+            res.json({
+                ok: true,
+                name: fileSaved,
+                file: file.mimetype,
+            });
+        } catch (error) {
+            return res.status(400).json({
+                ok: false,
+                message: 'No File Upload - image',
+            });
+        }
     }
 );
 

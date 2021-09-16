@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/post.model';
+import { PostsService } from 'src/app/services/posts.service';
 import { UiService } from 'src/app/services/ui.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -56,7 +57,8 @@ export class Tab3Page implements OnInit {
     constructor(
         private userService: UserService,
         private fb: FormBuilder,
-        private uiService: UiService
+        private uiService: UiService,
+        private post: PostsService
     ) {}
 
     ngOnInit(): void {
@@ -75,7 +77,10 @@ export class Tab3Page implements OnInit {
         this.selectAvatar(avt);
     }
 
-    logout() {}
+    async logout() {
+        this.post.pagePost = 0;
+        await this.userService.logout();
+    }
 
     selectAvatar(avatar) {
         this.avatars.forEach((av) => (av.seleccionado = false));
